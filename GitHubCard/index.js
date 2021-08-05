@@ -1,9 +1,11 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/jtvnn')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -58,3 +60,5 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+const entryPoint = document.querySelector('.cards')
