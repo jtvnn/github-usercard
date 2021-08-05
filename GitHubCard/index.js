@@ -62,3 +62,45 @@ const followersArray = [];
 */
 
 const entryPoint = document.querySelector('.cards')
+
+function gHCardMaker(cardObj) {
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const anchor = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  img.src = cardObj.avatar_url
+  name.textContent = 'Name: ', cardObj.name
+  username.textContent = cardObj.login
+  location.textContent = cardObj.location
+  anchor.textContent = cardObj.url
+  followers.textContent = cardObj.followers
+  following.textContent = cardObj.following
+  bio.textContent = cardObj.bio
+
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(anchor)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  return card
+
+}
