@@ -30,7 +30,7 @@ axios.get('https://api.github.com/users/jtvnn')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -61,46 +61,72 @@ const followersArray = [];
     bigknell
 */
 
-const entryPoint = document.querySelector('.cards')
+const entryPoint = document.querySelector('.cards');
 
-function gHCardMaker(cardObj) {
-  const card = document.createElement('div')
-  const img = document.createElement('img')
-  const cardInfo = document.createElement('div')
-  const name = document.createElement('h3')
-  const username = document.createElement('p')
-  const location = document.createElement('p')
-  const profile = document.createElement('p')
-  const anchor = document.createElement('a')
-  const followers = document.createElement('p')
-  const following = document.createElement('p')
-  const bio = document.createElement('p')
+function gHCardMaker(cardObj){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const anchor = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
 
-  card.classList.add('card')
-  cardInfo.classList.add('card-info')
-  name.classList.add('name')
-  username.classList.add('username')
+  img.src = cardObj.avatar_url;
+  name.textContent = cardObj.name;
+  username.textContent = cardObj.login;
+  location.textContent = cardObj.location;
+  anchor.textContent = cardObj.url;
+  followers.textContent = cardObj.followers;
+  following.textContent = cardObj.following;
+  bio.textContent = cardObj.bio;
 
-  img.src = cardObj.avatar_url
-  name.textContent = 'Name: ', cardObj.name
-  username.textContent = cardObj.login
-  location.textContent = cardObj.location
-  anchor.textContent = cardObj.url
-  followers.textContent = cardObj.followers
-  following.textContent = cardObj.following
-  bio.textContent = cardObj.bio
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(anchor);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
 
-  card.appendChild(img)
-  card.appendChild(cardInfo)
-  cardInfo.appendChild(name)
-  cardInfo.appendChild(username)
-  cardInfo.appendChild(location)
-  cardInfo.appendChild(profile)
-  profile.appendChild(anchor)
-  cardInfo.appendChild(followers)
-  cardInfo.appendChild(following)
-  cardInfo.appendChild(bio)
-
-  return card
-
+  return card;
 }
+
+axios.get('https://api.github.com/users/jtvnn')
+  .then(res => {
+    const content = res.data;
+    const gHCard = gHCardMaker(content);
+    entryPoint.appendChild(gHCard);
+    })
+  .catch(err => {
+    console.log(err);
+  })
+  .finally(() => console.log('done'))
+  
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+
+followersArray.forEach(result => {
+  axios.get('https://api.github.com/users/' + result)
+  .then(res => {
+    const content = res.data;
+    const gHCard = gHCardMaker(content);
+    entryPoint.appendChild(gHCard);
+    })
+  .catch(err => {
+    console.log(err);
+  })
+  .finally(() => console.log('done'))
+})
